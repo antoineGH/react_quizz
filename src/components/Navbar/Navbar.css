@@ -3,3 +3,30 @@
 	background-color: yellow;
 	padding: 1rem;
 }
+
+.navMenu {
+	width: 100%;
+}
+
+.nextPrevMenu {
+	padding: 0.5rem 0rem;
+}
+
+.myProgressBar {
+	margin-bottom: 0.5rem;
+}
+
+.questionPoints {
+	display: grid;
+	grid-template: 1fr / repeat(12, 1fr);
+}
+
+.questionSpan {
+	grid-area: 1 / 1 / span 1 / span 5;
+}
+
+.pointsSpan {
+	grid-area: 1 / 6 / span 1 / span 2;
+	justify-self: center;
+	align-self: center;
+}

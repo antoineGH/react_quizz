@@ -3,7 +3,7 @@
 	padding: 1rem;
 	display: grid;
 	grid-template: repeat(12, 1fr) / repeat(12, 1fr);
-	height: 350px;
+	height: 560px;
 	max-width: 950px;
 	margin: auto;
 }

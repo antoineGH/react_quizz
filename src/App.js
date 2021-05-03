@@ -8,7 +8,9 @@ function App() {
 	const [hasError, setHasError] = useState(false)
 	const [isLoading, setIsLoading] = useState(true)
 	const [questions, setQuestions] = useState(0)
+	const [points, setPoints] = useState(0)
 	const [questionIndex, setQuestionIndex] = useState(0)
+	const [hasAnswered, setHasAnswered] = useState(false)
 
 	useEffect(() => {
 		console.log('onmount useEffect')
@@ -26,12 +28,22 @@ function App() {
 			})
 	}, [])
 
+	const toggleHasAnswerer = () => {
+		setHasAnswered((prevHasAnswererd) => !prevHasAnswererd)
+	}
+
 	const goBack = () => {
 		setQuestionIndex((prevQuestionIndex) => prevQuestionIndex - 1)
+		setHasAnswered(false)
 	}
 
 	const goNext = () => {
 		setQuestionIndex((prevQuestionIndex) => prevQuestionIndex + 1)
+		setHasAnswered(false)
+	}
+
+	const handleAddPoints = (newPoints) => {
+		setPoints((prevPoints) => prevPoints + newPoints)
 	}
 
 	const onFirstQuestion = questionIndex === 0
@@ -47,8 +59,21 @@ function App() {
 
 	return (
 		<div className='App'>
-			<Navbar questionIndex={questionIndex} FirstQuestion={onFirstQuestion} LastQuestion={onLastQuestion} onGoBack={goBack} onGoNext={goNext} />
-			<Questions questions={questions} questionIndex={questionIndex} />
+			<Navbar
+				points={points}
+				questionIndex={questionIndex}
+				FirstQuestion={onFirstQuestion}
+				LastQuestion={onLastQuestion}
+				onGoBack={goBack}
+				onGoNext={goNext}
+			/>
+			<Questions
+				handleAddPoints={handleAddPoints}
+				toggleHasAnswerer={toggleHasAnswerer}
+				hasAnswered={hasAnswered}
+				questions={questions}
+				questionIndex={questionIndex}
+			/>
 		</div>
 	)
 }

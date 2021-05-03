@@ -1,15 +1,24 @@
 import React, { useState } from 'react'
 import './Questions.css'
+import Button from 'react-bootstrap/Button'
 
 export default function Questions(props) {
-	const { questions, questionIndex } = props
+	const { questions, questionIndex, toggleHasAnswerer, hasAnswered, handleAddPoints } = props
 	const [selectedAnswer, setSelectedAnswer] = useState()
-	const [hasAnswered, setHasAnswered] = useState(false)
+
+	const goodAnswers = ['Correct', 'Yay', 'Great', 'Super', 'Keep Going', 'Absolutely Right']
+	const wrongAnswers = ['Nope', 'Ooops', 'Esh', 'Oh No', 'Not Even Close', 'Try Again']
 
 	const handleClick = (e) => {
-		console.log('hasbeenClicked')
 		setSelectedAnswer(e.target.value)
-		setHasAnswered(true)
+		if (e.target.value === questions[questionIndex].correct_answer) {
+			handleAddPoints(10)
+		}
+		toggleHasAnswerer()
+	}
+
+	const selectRandomAnswerIndex = () => {
+		return Math.floor(Math.random() * goodAnswers.length)
 	}
 
 	return (
@@ -20,19 +29,25 @@ export default function Questions(props) {
 			</div>
 			<div className='mainTitleQuestion'>True Or False ?</div>
 			<div className='mainQuestion'>
-				<div>{questions[questionIndex].question}</div>
+				<div dangerouslySetInnerHTML={{ __html: questions[questionIndex].question }} />
 			</div>
 			<div className='Answer'>
-				<button value='True' onClick={handleClick} disabled={hasAnswered}>
+				<Button variant='success' value='True' onClick={handleClick} disabled={hasAnswered}>
 					True
-				</button>
-				<button value='False' onClick={handleClick} disabled={hasAnswered}>
+				</Button>
+				<Button className='ml-2' variant='danger' value='False' onClick={handleClick} disabled={hasAnswered}>
 					False
-				</button>
+				</Button>
 			</div>
-			<div className='Result'>
-				<div>{questions[questionIndex].correct_answer}</div>
-			</div>
+			{hasAnswered && (
+				<div className='Result'>
+					{selectedAnswer === questions[questionIndex].correct_answer ? (
+						<div className='green'>{goodAnswers[selectRandomAnswerIndex()]}</div>
+					) : (
+						<div className='red'>{wrongAnswers[selectRandomAnswerIndex()]}</div>
+					)}
+				</div>
+			)}
 		</div>
 	)
 }

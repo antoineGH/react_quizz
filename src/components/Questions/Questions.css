@@ -26,8 +26,9 @@
 }
 
 .mainQuestion {
-	padding: 1rem 0rem;
+	padding: 1rem 1.5rem;
 	text-align: center;
+	word-wrap: break-word;
 }
 
 .Answer {
@@ -38,4 +39,12 @@
 .Result {
 	font-size: 1.5rem;
 	text-align: center;
+}
+
+.green {
+	color: green;
+}
+
+.red {
+	color: red;
 }
