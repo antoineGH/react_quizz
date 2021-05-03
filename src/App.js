@@ -48,7 +48,7 @@ function App() {
 	return (
 		<div className='App'>
 			<Navbar questionIndex={questionIndex} FirstQuestion={onFirstQuestion} LastQuestion={onLastQuestion} onGoBack={goBack} onGoNext={goNext} />
-			<Questions questions={questions} />
+			<Questions questions={questions} questionIndex={questionIndex} />
 		</div>
 	)
 }

@@ -1,5 +1,5 @@
 export const getQuestions = async () => {
-	const response = await fetch('https://opentdb.com/api.php?amount=10&difficulty=medium&type=boolean')
+	const response = await fetch('https://opentdb.com/api.php?amount=10&type=boolean')
 	const responseJson = response.json()
 
 	return new Promise((resolve, reject) => {

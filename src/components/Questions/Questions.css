@@ -3,3 +3,39 @@
 	background-color: pink;
 	padding: 1rem;
 }
+
+.headerQuestion {
+	display: grid;
+	grid-template: 1fr / repeat(12, 1fr);
+}
+
+.categoryQuestion {
+	grid-area: 1 / 1 / span 1 / span 6;
+	justify-self: flex-start;
+}
+
+.difficultyQuestion {
+	grid-area: 1 / 6 / span 1 / span 12;
+	justify-self: flex-end;
+}
+
+.mainTitleQuestion {
+	justify-self: center;
+	text-align: center;
+	font-size: 1.5rem;
+}
+
+.mainQuestion {
+	padding: 1rem 0rem;
+	text-align: center;
+}
+
+.Answer {
+	padding: 1rem 0rem;
+	text-align: center;
+}
+
+.Result {
+	font-size: 1.5rem;
+	text-align: center;
+}
