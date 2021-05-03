@@ -1,9 +1,26 @@
 .App {
-	background-color: yellowgreen;
 	padding: 1rem;
 	display: grid;
 	grid-template: repeat(12, 1fr) / repeat(12, 1fr);
 	height: 560px;
 	max-width: 950px;
 	margin: auto;
+}
+
+* {
+	font-family: 'Ledger', cursive;
+}
+
+.btn-primary {
+	font-family: 'Ledger', cursive;
+	font-size: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'Nixie One', cursive;
 }
