@@ -1,0 +1,5 @@
+.questions {
+	grid-area: 5 / 1 / span 12 / span 12;
+	background-color: pink;
+	padding: 1rem;
+}
