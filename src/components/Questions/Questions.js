@@ -3,7 +3,7 @@ import './Questions.css'
 import Button from 'react-bootstrap/Button'
 
 export default function Questions(props) {
-	const { questions, questionIndex, toggleHasAnswerer, hasAnswered, handleAddPoints } = props
+	const { questions, questionIndex, toggleHasAnswerer, hasAnswered, answeredWrong, answeredRight, questionsPoints } = props
 	const [selectedAnswer, setSelectedAnswer] = useState()
 
 	const goodAnswers = ['Correct', 'Yay', 'Great', 'Super', 'Keep Going', 'Absolutely Right']
@@ -11,8 +11,12 @@ export default function Questions(props) {
 
 	const handleClick = (e) => {
 		setSelectedAnswer(e.target.value)
-		if (e.target.value === questions[questionIndex].correct_answer) {
-			handleAddPoints(10)
+		if (questionsPoints[questionIndex].answered === false) {
+			if (e.target.value === questions[questionIndex].correct_answer) {
+				answeredRight(questionIndex)
+			} else {
+				answeredWrong(questionIndex)
+			}
 		}
 		toggleHasAnswerer()
 	}

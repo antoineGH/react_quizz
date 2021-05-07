@@ -8,18 +8,18 @@ function App() {
 	const [hasError, setHasError] = useState(false)
 	const [isLoading, setIsLoading] = useState(true)
 	const [questions, setQuestions] = useState(0)
-	const [points, setPoints] = useState(0)
+	const [questionsPoints, setQuestionsPoints] = useState([])
 	const [questionIndex, setQuestionIndex] = useState(0)
 	const [hasAnswered, setHasAnswered] = useState(false)
 
 	useEffect(() => {
-		console.log('onmount useEffect')
 		setHasError(false)
 		setIsLoading(true)
 		getQuestions()
 			.then((response) => {
 				setQuestions(response.results)
 				setIsLoading(false)
+				setQuestionsPoints(new Array(response.results.length).fill({ answered: false, point: 0 }))
 			})
 			.catch((error) => {
 				setHasError(true)
@@ -35,15 +35,52 @@ function App() {
 	const goBack = () => {
 		setQuestionIndex((prevQuestionIndex) => prevQuestionIndex - 1)
 		setHasAnswered(false)
+		calculatePoints()
 	}
 
 	const goNext = () => {
 		setQuestionIndex((prevQuestionIndex) => prevQuestionIndex + 1)
 		setHasAnswered(false)
+		calculatePoints()
 	}
 
-	const handleAddPoints = (newPoints) => {
-		setPoints((prevPoints) => prevPoints + newPoints)
+	const onStartAgain = () => {
+		setHasError(false)
+		setIsLoading(true)
+		setHasAnswered(false)
+		getQuestions()
+			.then((response) => {
+				setQuestions(response.results)
+				setIsLoading(false)
+				setQuestionsPoints(new Array(response.results.length).fill({ answered: false, point: 0 }))
+			})
+			.catch((error) => {
+				setHasError(true)
+				setIsLoading(false)
+				console.log(error)
+			})
+	}
+
+	const calculatePoints = () => {
+		let count = 0
+		questionsPoints.forEach((question) => {
+			if (question.answered === true) {
+				count += question.point
+			}
+		})
+		return count
+	}
+
+	const answeredRight = (indexQuestion) => {
+		let copyQuestionPoints = [...questionsPoints]
+		copyQuestionPoints[indexQuestion] = { answered: true, point: 10 }
+		setQuestionsPoints(copyQuestionPoints)
+	}
+
+	const answeredWrong = (indexQuestion) => {
+		let copyQuestionPoints = [...questionsPoints]
+		copyQuestionPoints[indexQuestion] = { answered: true, point: 0 }
+		setQuestionsPoints(copyQuestionPoints)
 	}
 
 	const onFirstQuestion = questionIndex === 0
@@ -60,19 +97,22 @@ function App() {
 	return (
 		<div className='App'>
 			<Navbar
-				points={points}
 				questionIndex={questionIndex}
 				FirstQuestion={onFirstQuestion}
 				LastQuestion={onLastQuestion}
 				onGoBack={goBack}
 				onGoNext={goNext}
+				onStartAgain={onStartAgain}
+				calculatePoints={calculatePoints}
 			/>
 			<Questions
-				handleAddPoints={handleAddPoints}
 				toggleHasAnswerer={toggleHasAnswerer}
 				hasAnswered={hasAnswered}
 				questions={questions}
 				questionIndex={questionIndex}
+				questionsPoints={questionsPoints}
+				answeredRight={answeredRight}
+				answeredWrong={answeredWrong}
 			/>
 		</div>
 	)
