@@ -18,7 +18,9 @@ function App() {
 		getQuestions()
 			.then((response) => {
 				setQuestions(response.results)
-				setIsLoading(false)
+				setTimeout(() => {
+					setIsLoading(false)
+				}, 2000)
 				setQuestionsPoints(new Array(response.results.length).fill({ answered: false, point: 0 }))
 			})
 			.catch((error) => {
@@ -48,6 +50,7 @@ function App() {
 		setHasError(false)
 		setIsLoading(true)
 		setHasAnswered(false)
+		setQuestionIndex(0)
 		getQuestions()
 			.then((response) => {
 				setQuestions(response.results)
@@ -83,6 +86,16 @@ function App() {
 		setQuestionsPoints(copyQuestionPoints)
 	}
 
+	const totalAnswered = () => {
+		let count = 0
+		questionsPoints.forEach((question) => {
+			if (question.answered === true) {
+				count++
+			}
+		})
+		return `/${count * 10}`
+	}
+
 	const onFirstQuestion = questionIndex === 0
 	const onLastQuestion = questionIndex === questions.length - 1
 
@@ -104,6 +117,7 @@ function App() {
 				onGoNext={goNext}
 				onStartAgain={onStartAgain}
 				calculatePoints={calculatePoints}
+				totalAnswered={totalAnswered}
 			/>
 			<Questions
 				toggleHasAnswerer={toggleHasAnswerer}

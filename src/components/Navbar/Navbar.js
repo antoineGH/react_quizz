@@ -4,7 +4,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 import Button from 'react-bootstrap/Button'
 
 export default function Navbar(props) {
-	const { questionIndex, FirstQuestion, LastQuestion, onGoBack, onGoNext, onStartAgain, calculatePoints } = props
+	const { questionIndex, FirstQuestion, LastQuestion, onGoBack, onGoNext, onStartAgain, calculatePoints, totalAnswered } = props
 
 	const calculatePercentageQuestion = (questionIndex) => {
 		return (questionIndex + 1) * 10
@@ -18,7 +18,7 @@ export default function Navbar(props) {
 					<span className='questionSpan'>Question #{questionIndex + 1}</span>
 					<span className='pointsSpan'>
 						Points: {calculatePoints()}
-						{questionIndex + 1 === 10 && <span>/100</span>}
+						{totalAnswered()}
 					</span>
 				</div>
 				<div className='nextPrevMenu'>
