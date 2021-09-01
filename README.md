@@ -1,4 +1,4 @@
-# React Appointment Planner
+# React Quizz
 
 # Table of contents
 
