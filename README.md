@@ -76,4 +76,4 @@ yarn start
 
 ## 5. Screenshots<a name="screenshots"></a>
 
-Quizz Component ![Components Screenshot](https://templars.guru/app/github/react_quizz/quizz_1.PNG)
+Quizz Component ![Components Screenshot](https://github.com/antoineratat/github_docs/blob/main/react_quizz/quizz_1.PNG?raw=true)
